@@ -165,9 +165,14 @@ ex) $ docker run -d --name zabbix-op-bot zabbix-op-bot:1.0
 ### Service Usage
 Telegram 토큰 설정과 서비스 실행이 정상적으로 되었다면, 텔레그램 봇에게 다음과 같은 명령을 내려보세요!
 (BotFather의 botcommand를 사용 설정 하면 '/'만 입력해도 자동으로 사용 가능한 명령어를 알려줍니다
+![Telegram command use](https://user-images.githubusercontent.com/31076511/53035476-dee9c580-34b8-11e9-9f04-36cb2eeecdd2.png)
 ```sh
 /zabbixop
 ```
+
+### Conversation Flow
+![Conversation Flow](https://user-images.githubusercontent.com/31076511/53035507-f163ff00-34b8-11e9-98de-d28b55b4daff.png)
+
 ### Next Plan
   - 코드별 주석 추가
   - host_info 조회 시간 줄이기외 코드 개선
