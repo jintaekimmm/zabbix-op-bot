@@ -121,13 +121,17 @@ def zbx_host_graph_list(bot, chat_id, zbx_name, host):
     zbx_op = ZabbixOp()
     host_info = zbx_op.host_info(zbx_name, host)
     if host:
-        graph_list = zbx_op.host_graph(zbx_name, host_info)
-        text = ''
-        for i, v in enumerate(graph_list):
-            text += '{}. {}\n'.format(i, v['name'])
+        try:
+            graph_list = zbx_op.host_graph(zbx_name, host_info)
+        except ZabbixAPIException as e:
+            bot.send_message(chat_id, text='An error has occurred.\n{}'.format(repr(e)))
+        else:
+            text = ''
+            for i, v in enumerate(graph_list):
+                text += '{}. {}\n'.format(i, v['name'])
 
-        bot.send_message(chat_id, text=text)
-        return True
+            bot.send_message(chat_id, text=text)
+            return True
     else:
         bot.send_message(chat_id, text=bot.send_message(chat_id, text='{} does not exist in {}'.format(host, zbx_name)))
         return False

@@ -266,7 +266,7 @@ zabbix_op_conversation_handler = ConversationHandler(
 
     states={
         ZBX_NAME: [RegexHandler('^(' + '|'.join(zbx_names) + ')$', select_menu, pass_user_data=True)],
-        ZBX_MENU: [RegexHandler('^((g|G)et (i|I)ssue)$', select_trigger_severity, pass_user_data=True),
+        ZBX_MENU: [RegexHandler('^((g|G)et (i|I)ssues)$', select_trigger_severity, pass_user_data=True),
                    RegexHandler('^((g|G)et (h|H)osts)$', select_hosts_menu, pass_user_data=True)],
         ZBX_HOST_MENU: [RegexHandler('^((h|H)ost (s|S)tatus)$', host_action, pass_user_data=True),
                         RegexHandler('^((h|H)ost (l|L)ist\(view\))$', select_host_list, pass_user_data=True),
