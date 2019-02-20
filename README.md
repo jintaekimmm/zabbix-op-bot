@@ -121,7 +121,7 @@ allow_users = {
 ### Running service
 파이썬을 통해 스크립트를 실행합니다. supervisor나 Docker를 통해 데몬 방식으로 서비스 구동을 권장합니다
 ```sh
-python main.py
+$ python main.py
 ```
 ### Docker
 zabbix-op-bot을 Docker container를 통해 실행할 수 있습니다
