@@ -5,7 +5,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_DIR = os.path.join(os.path.dirname(BASE_DIR), 'tmp_file')
 
-VERSION = '1.0'
+VERSION = '1.1'
 
 # ----- [Telegram] -----
 # Telegram Bot 의 token 을 설정합니다

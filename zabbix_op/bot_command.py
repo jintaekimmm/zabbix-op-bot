@@ -26,7 +26,7 @@ def zbx_get_issue(bot, chat_id, severity, zbx_names=None, polling=False):
             for issue in issues:
                 lastchange_epochtime = int(issue['lastchange'])
                 lastchange = datetime.fromtimestamp(lastchange_epochtime).strftime('%Y-%m-%d %H:%M:%S')
-                host_info = zbx_op.host_info(zbx_name, issue['hostname'])
+                host_info = zbx_op.host_info(zbx_name, issue['hosts'][0]['host'])
 
                 if len(issue['items']) == 1:
                     lastvalue = issue['items'][0]['lastvalue']

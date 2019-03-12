@@ -1,7 +1,7 @@
 # Zabbix-op-bot
 -------
 
-Zabbix-op-bot은 Telegram 을 통해 Zabbix의 Agent host를 관리합니다. Zabbix에 발생한 트리거 이슈를 레벨별로 조회고 Agent host의 모니터링 상태를 조회하거나 변경할 수 있으며, Agent host의 그래프를 조회하여 이미지로 가져올 수 있습니다. 또한 Agent host 리스트를 타입별로(전체/모니터 상태의 호스트/모니터링 중이지 않은 호스트) 선택하여 조회 또는 csv형식으로 다운로드할 수 있습니다
+Zabbix-op-bot은 Telegram 을 통해 Zabbix의 Agent host를 관리합니다. Zabbix에 발생한 트리거 이슈를 레벨별로 조회하고 Agent host의 모니터링 상태를 조회하거나 변경할 수 있으며, Agent host의 그래프를 조회하여 이미지로 가져올 수 있습니다. 또한 Agent host 리스트를 타입별로(전체/모니터 상태의 호스트/모니터링 중이지 않은 호스트) 선택하여 조회 또는 csv형식으로 다운로드할 수 있습니다
 
 #### 지원하는 기능:
   - Zabbix에서 발생한 트리거 이슈 레벨별 조회
@@ -121,7 +121,7 @@ allow_users = {
 ### Running service
 파이썬을 통해 스크립트를 실행합니다. supervisor나 Docker를 통해 데몬 방식으로 서비스 구동을 권장합니다
 ```sh
-python main.py
+$ python main.py
 ```
 ### Docker
 zabbix-op-bot을 Docker container를 통해 실행할 수 있습니다
@@ -165,9 +165,14 @@ ex) $ docker run -d --name zabbix-op-bot zabbix-op-bot:1.0
 ### Service Usage
 Telegram 토큰 설정과 서비스 실행이 정상적으로 되었다면, 텔레그램 봇에게 다음과 같은 명령을 내려보세요!
 (BotFather의 botcommand를 사용 설정 하면 '/'만 입력해도 자동으로 사용 가능한 명령어를 알려줍니다
+![Telegram command use](https://user-images.githubusercontent.com/31076511/53035476-dee9c580-34b8-11e9-9f04-36cb2eeecdd2.png)
 ```sh
 /zabbixop
 ```
+
+### Conversation Flow
+![Conversation Flow](https://user-images.githubusercontent.com/31076511/53035507-f163ff00-34b8-11e9-98de-d28b55b4daff.png)
+
 ### Next Plan
   - 코드별 주석 추가
   - host_info 조회 시간 줄이기외 코드 개선
