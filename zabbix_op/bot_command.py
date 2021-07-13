@@ -117,24 +117,41 @@ def zbx_host_change_status(bot, chat_id, zbx_name, host, action):
         return False
 
 
-def zbx_host_graph_list(bot, chat_id, zbx_name, host):
+def _zbx_host_graph_list(zbx_name, host):
     zbx_op = ZabbixOp()
     host_info = zbx_op.host_info(zbx_name, host)
     if host:
         try:
             graph_list = zbx_op.host_graph(zbx_name, host_info)
         except ZabbixAPIException as e:
-            bot.send_message(chat_id, text='An error has occurred.\n{}'.format(repr(e)))
+            return {
+                'error': 'An error has occurred.\n{}'.format(repr(e))
+            }
         else:
-            text = ''
+            res = {}
             for i, v in enumerate(graph_list):
-                text += '{}. {}\n'.format(i, v['name'])
+                res[str(i)] = v['name']
 
-            bot.send_message(chat_id, text=text)
-            return True
+            return res
     else:
-        bot.send_message(chat_id, text=bot.send_message(chat_id, text='{} does not exist in {}'.format(host, zbx_name)))
+        return {}
+
+
+def zbx_host_graph_list(bot, chat_id, zbx_name, host, graph_list: dict):
+    if 'error' in graph_list:
+        bot.send_message(chat_id, text=graph_list['error'])
         return False
+
+    if not graph_list:
+        bot.send_message(chat_id, text='{} does not exist in {}'.format(host, zbx_name))
+        return False
+
+    text = ""
+    for k, v in graph_list.items():
+        text += '{}. {}\n'.format(k, v)
+
+    bot.send_message(chat_id, text=text)
+    return True
 
 
 def zbx_host_graph_resource(bot, chat_id, zbx_name, host, graph_name):
@@ -143,9 +160,10 @@ def zbx_host_graph_resource(bot, chat_id, zbx_name, host, graph_name):
     graph = zbx_op.host_graph(zbx_name, host_info, graph_name)
     if graph:
         stime = zbx_op._x_hour_ago()
+        period_time = zbx_op._x_hour_ago_to_time() * 3600
+
         for i in graph:
-            graph_url = '{}?graphid={}&width=900&height=200&period=10800&stime={}'.format(zbx_op.graph_url(zbx_name), i['graphid'], stime)
-            print(graph_url)
+            graph_url = '{}?graphid={}&width=900&height=200&period={}&stime={}'.format(zbx_op.graph_url(zbx_name), i['graphid'], period_time, stime)
             graph_img = zbx_op.graph_image_download(zbx_name, graph_url)
             bot.send_photo(chat_id, photo=open(graph_img, 'rb'))
             return True

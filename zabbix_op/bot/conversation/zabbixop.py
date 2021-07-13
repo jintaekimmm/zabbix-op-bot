@@ -213,8 +213,10 @@ def select_graph_list(bot, update, user_data):
     zbx_name = user_data['zbx_name']
 
     update.message.reply_text(text='Please enter a graph name or number.')
-    bot_command.zbx_host_graph_list(bot, chat_id, zbx_name, user_data['zbx_host'])
+    graph_list = bot_command._zbx_host_graph_list(zbx_name, user_data['zbx_host'])
+    user_data['graph_list'] = graph_list
 
+    bot_command.zbx_host_graph_list(bot, chat_id, zbx_name, user_data['zbx_host'], graph_list)
     return ZBX_GRAPH_RESOURCE
 
 
@@ -224,8 +226,14 @@ def select_graph_resource(bot, update, user_data):
     graph_name = update.message.text
     zbx_name = user_data['zbx_name']
     zbx_host = user_data['zbx_host']
+    graph_list = user_data['graph_list']
 
-    bot_command.zbx_host_graph_resource(bot, chat_id, zbx_name, zbx_host, graph_name)
+    try:
+        select_graph = graph_list[graph_name]
+    except KeyError:
+        select_graph = graph_name
+
+    bot_command.zbx_host_graph_resource(bot, chat_id, zbx_name, zbx_host, select_graph)
 
     return ConversationHandler.END
 

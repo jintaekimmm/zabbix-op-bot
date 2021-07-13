@@ -263,6 +263,10 @@ class ZabbixOp(object):
 
         return stime.strftime('%Y%m%d%H%M%S')
 
+    @staticmethod
+    def _x_hour_ago_to_time():
+        return config.zabbix_graph_stime
+
     def graph_url(self, zbx_name):
         return self._graph_url(zbx_name)
 
